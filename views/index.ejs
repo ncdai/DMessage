@@ -3,17 +3,20 @@
     <head>
         <meta charset="utf-8">
         <title>DMessage</title>
-        <link rel="stylesheet" href="http://localhost:3000/libs/bootstrap/css/bootstrap.css">
-        <link rel="stylesheet" href="http://localhost:3000/libs/simple-line-icons/simple-line-icons.css" />
+        <link rel="stylesheet" href="http://localhost:3000/libs/bootstrap/css/bootstrap.css" />
         <link rel="stylesheet" href="http://localhost:3000/libs/emojione/css/emojione.min.css" />
+        <link rel="stylesheet" href="http://localhost:3000/libs/simple-line-icons/simple-line-icons.css" />
+        <link rel="stylesheet" href="http://mervick.github.io/lib/emojione/assets/sprites/emojione.sprites.css">
+        <link rel="stylesheet" href="http://localhost:3000/libs/emojionearea/emojionearea.css" />
         <link rel="stylesheet" href="http://localhost:3000/css/style.css" />
         <script type="text/javascript" src="http://localhost:3000/socket.io/socket.io.js"></script>
         <script type="text/javascript" src="http://localhost:3000/libs/jquery/jquery.js"></script>
-        <script type="text/javascript" src="http://localhost:3000/libs/emojione/js/emojione.js"></script>
+        <script type="text/javascript" src="http://mervick.github.io/lib/emojione/lib/js/emojione.min.js"></script>
+        <script type="text/javascript" src="http://localhost:3000/libs/emojionearea/emojionearea.js"></script>
         <script type="text/javascript" src="http://localhost:3000/libs/bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript">
             var socket = io('http://localhost:3000');
-            
+
             var clientData = {
                 user: {
                     _id: '<%= user._id %>',
@@ -42,6 +45,49 @@
         </style>
         <% } %>
         <script type="text/javascript" src="http://localhost:3000/js/app.js"></script>
+
+        <style>
+        .show-emoji-box {
+            float: left;
+            width: 50px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .show-emoji-box i {
+            font-size: 25px;
+            color: #bdc3c7;
+        }
+        .text-input {
+            float: left;
+            width: calc(100% - 50px);
+            /*height: 50px;*/
+            display: flex;
+            align-items: center;
+        }
+        .emoji-box {
+            display: none;
+            background: #f9f9f9;
+            width: 200px;
+            position: absolute;
+            right: 0;
+            bottom: 58px;
+            border-radius: 5px;
+        }
+        .emoji-box::before {
+            content: "";
+            position: absolute;
+            bottom: -7px;
+            right: 20px;
+            width: 0;
+            height: 0;
+            border-left: 7px solid transparent;
+            border-right: 7px solid transparent;
+            border-top: 7px solid #e5e5e5;
+        }
+        </style>
+
     </head>
     <body>
         <div class="modal fade" id="modalCreateRoom" tabindex="-1" role="dialog" aria-labelledby="modalCreateRoomLabel">
@@ -107,7 +153,7 @@
                         <div id="listMessage"></div>
                     </div>
                     <div class="bottom">
-                        <input type="text" id="txtMessage" class="input-message" placeholder="Enter message" />
+                        <input type="text" id="txtMessage" class="input-message" value="" placeholder="Enter message" />
                     </div>
                 </div>
                 <div class="main-right">

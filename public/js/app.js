@@ -206,4 +206,18 @@ $(document).ready(function() {
             socket.emit('client-send-create-room', roomName);
         }
     });
+    var inputMessage = $("#txtMessage").emojioneArea({
+        events: {
+            keyup: function (editor, event) {
+                if (event.which == 13) {
+                    var content = inputMessage[0].emojioneArea.getText();
+                    console.log('|' + content + '|');
+                    // if (content !== '') {
+                        inputMessage[0].emojioneArea.setText('');
+                    //     socket.emit('client-send-message', htmlSpecialChars(content));
+                    // }
+                }
+            },
+        }
+    });
 });
